@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Game of Thrones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="gameofthrones.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("img").click(function () {
+                let house_name = new RegExp($(this).prop("alt"));
+                for(var page = 1; page <= 9; page++){
+                    // $.get("https://www.anapioficeandfire.com/api/houses?pagesize=50&&page=" + page, function (house_response) {
+                    //     for (var each_house in house_response){
+                    //         if(house_name.test(house_response[each_house].name)){
+                    //             $(".info h1").html("Name: " + house_response[each_house].name);
+                    //             $(".info h2").html("Words: " + house_response[each_house].words);
+                    //             var title_html = "Titles: ";
+                    //             for(var house_titles = 0; house_titles < house_response[each_house].titles.length; house_titles++){
+                    //                 title_html += house_response[each_house].titles[house_titles];
+                    //                 if (house_titles != house_response[each_house].titles.length-1){
+                    //                     title_html += ", ";
+                    //                 }
+                    //             }
+                    //             $(".title").html(title_html);
+                    //             break;
+                    //         }
+                    //     }
+                    // }, "json");
+                    $.ajax({
+                        async: true,
+                        type: 'GET',
+                        url: "https://www.anapioficeandfire.com/api/houses?pagesize=50&&page=" + page,
+                        success: function (house_response) {
+                            for (var each_house in house_response){
+                                if(house_name.test(house_response[each_house].name)){
+                                    $(".info h1").html("Name: " + house_response[each_house].name);
+                                    $(".info h2").html("Words: " + house_response[each_house].words);
+                                    var title_html = "Titles: ";
+                                    for(var house_titles = 0; house_titles < house_response[each_house].titles.length; house_titles++){
+                                        title_html += house_response[each_house].titles[house_titles];
+                                        if (house_titles != house_response[each_house].titles.length-1){
+                                            title_html += ", ";
+                                        }
+                                    }
+                                    $(".title").html(title_html);
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                };
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="maincontainer">
+        <div class="header">
+            Welcome to Game of Thrones!!
+        </div>
+        <div class="houses">
+            <img src="stark.jpg" alt="House Stark">
+            <img src="targaryen.jpg" alt="House Targaryen">
+            <img src="lannister.jpg" alt="House Lannister of Lannisport">
+            <img src="baratheon.png" alt="House Baratheon of King's Landing">
+        </div>
+        <div class="info">
+            <h3 class="heading">House Details</h3>
+            <h1>Name: House Targaryen of King's Landing</h1>
+            <h2>Words: Fire and Blood</h4>
+            <h3 class="title">Titles: King of the Andals, the Rhoynar and the First Men,</h3>
+        </div>
+    </div>
+</body>
+</html>
