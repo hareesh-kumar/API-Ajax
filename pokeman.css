@@ -1,0 +1,58 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.maincontent{
+    width: 1200px;
+    height: 1000px;
+    margin: auto;
+}
+img{
+    width: 100px;
+}
+.pokeman{
+    width: 800px;
+    height: 1000px;
+    display: inline-block;
+}
+.pokemaninfo{
+    display: inline-block;
+    width: 315px;
+    height: 600px;
+    background-color: bisque;
+    vertical-align: top;
+    border-top: 30px solid red;
+    border-left: 30px solid red;
+    border-right: 30px solid red;
+    border-bottom: 70px solid red;
+    margin: 0 0 0 20px;
+    position: fixed;
+    top: 20px;
+    text-align: center;
+}
+h1{
+    text-align: center;
+    margin: 20px auto;
+}
+img.info{
+    width: 150px;
+}
+h3{
+    text-align: left;
+    margin: 15px;
+}
+ul{
+    text-align: left;
+    list-style: inside;
+    margin: 10px 0 10px 50px;
+    font-size: 20px;
+    padding: 10px;
+}
+p{
+    text-align: left;
+    list-style: inside;
+    margin: 10px 0 10px 15px;
+    font-size: 20px;
+    padding: 10px;
+    
+}

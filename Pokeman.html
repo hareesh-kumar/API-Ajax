@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pokeman</title>
+    <meta name="description" content="All the Pokeman characters">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="pokeman.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            for(var i = 1; i<=151; i++){
+                var htmlstr = "<img id='"+ i +"' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + i + ".png' alt='Pokeman'>";
+                $(".pokeman").append(htmlstr);
+            }
+            $("img").click(function () {
+                var temp_id = $(this).prop("id");
+                $.get("https://pokeapi.co/api/v2/pokemon/"+ temp_id +"/", function (poke_response) {
+                    var infohtmlStr = "";
+
+/*                  var infohtmlStr = "<h1>" + poke_response.name + "</h1>";
+                    infohtmlStr += "<img class='info' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + temp_id + ".png' alt='" + poke_response.name + "'>";
+                    infohtmlStr += "<h3>Types</h3><ul>";
+                    for (var typesindex = 0; typesindex < poke_response.types.length; typesindex++) {
+                        infohtmlStr += "<li>" + poke_response.types[typesindex].type.name + "</li>";
+                    }
+                    infohtmlStr += "</ul><h3>Height</h3>";
+                    infohtmlStr += "<p>" + poke_response.height + "</p>";
+                    infohtmlStr += "<h3>Weight</h3>";
+                    infohtmlStr += "<p>" + poke_response.weight + "</p>";
+                    $(".pokemaninfo").html(infohtmlStr);*/ //This block is another way of doing this.
+
+                    for (var typesindex = 0; typesindex < poke_response.types.length; typesindex++) {
+                        infohtmlStr += "<li>" + poke_response.types[typesindex].type.name + "</li>";
+                    }
+                    $(".pokemaninfo h1").html(poke_response.name);
+                    $(".info").attr("src", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + temp_id + ".png");
+                    $(".info").attr("alt", poke_response.name);
+                    $("ul").html(infohtmlStr);
+                    $(".pokeheight").html(poke_response.height);
+                    $(".pokeweight").html(poke_response.weight);                
+                } ,"json");
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="maincontent">
+        <div class="pokeman">
+
+        </div>
+        <div class="pokemaninfo">
+            <h1>Bulbasaur</h1>
+            <img class="info" src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png' alt='Bulbasaur'>
+            <h3>Types</h3>
+            <ul>
+                <li>poison</li>
+                <li>grass</li>
+            </ul>
+            <h3>Height</h3>
+            <p class="pokeheight">7</p>
+            <h3>Weight</h3>
+            <p class="pokeweight">69</p>
+        </div>
+        
+    </div>
+</body>
+</html>

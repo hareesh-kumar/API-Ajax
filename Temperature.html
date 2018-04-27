@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weather Application</title>
+    <meta name="description" content="Get the local weather">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type='text/javascript' src='config.js'></script>
+    <script>
+        var mykey = config.my_open_weather_key;
+        $(document).ready(function () {
+            $("form").submit(function () {
+                if ($(this).find('input[name="city_name"]').val() == "") {
+                    return false;
+                }
+                var htmlstr = "";
+                htmlstr = "http://api.openweathermap.org/data/2.5/weather?q="
+                    + $(this).find('input[name="city_name"]').val() +
+                    "&&appid=" + mykey;
+                $.get(htmlstr, function (weather_response) {
+//                    console.log(weather_response);
+                    $(".weather_window h1").html(weather_response.name);
+                    var centigrade_temp = Math.floor(weather_response.main.temp - 274);
+                    var centigrade_temp_max = Math.floor(weather_response.main.temp_max - 274);
+                    var centigrade_temp_min = Math.floor(weather_response.main.temp_min - 274);
+                    $(".weather_window h2").html("Temperature : " + centigrade_temp + "C");
+                    $(".weather_window p").html("Max :" + centigrade_temp_max + "C | Min :" + centigrade_temp_min + "C");
+                }, "json");
+                $('form').trigger("reset");
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="maincontent">
+        <div class="getcity">
+            <h1>Welcome to Weather App!</h1>
+            <form>
+                <label for="city_name">Enter City Name:</label>
+                <input type="text" name="city_name" id="city_name" placeholder="Enter City Name">
+                <input class="inputbutton" type="submit" name="submit" value="Show Weather">
+            </form>
+        </div>
+        <div class="weather_window">
+            <div id="contact1" class="contact">
+                <h1></h1>
+                <h2></h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
